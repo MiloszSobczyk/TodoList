@@ -1,6 +1,18 @@
-@TodoList_HostAddress = http://localhost:5009
+@TodoList_HostAddress = https://localhost:7037
 
-GET {{TodoList_HostAddress}}/weatherforecast/
+POST {{TodoList_HostAddress}}/api/todotask
+Content-Type: application/json
+{
+    "title": "Buy groceries",
+    "description": "Milk, eggs, bread"
+}
+
+###
+
+GET {{TodoList_HostAddress}}/api/todotask
 Accept: application/json
 
 ###
+
+GET {{TodoList_HostAddress}}/api/todotask/1
+Accept: application/json
