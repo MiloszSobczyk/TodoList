@@ -41,6 +41,7 @@ public class Program
             c.RoutePrefix = string.Empty; // Swagger at root URL: https://localhost:5001/
         });
 
+        app.UseCors("AllowAllOrigins");
         app.MapControllers();
 
         app.Run();
