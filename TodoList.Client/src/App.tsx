@@ -7,6 +7,7 @@ import { Button } from "./components/ui/button";
 import axios from "axios";
 import { Label } from "./components/ui/label";
 import { Separator } from "./components/ui/separator";
+import { X } from "lucide-react";
 
 const apiUrl = "https://localhost:7037";
 interface Task {
@@ -16,31 +17,45 @@ interface Task {
 }
 
 function DisplayTask({ task }: { task: Task }) {
+  const onDelete = (number: number) => {
+    axios.delete(`${apiUrl}/api/TodoTask/${number}`);
+  };
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{task.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <>
-          <Separator className="m4" />
+    <div className="flex items-center justify-between p-4 border rounded-sm">
+      <div className="flex items-center gap-4 flex-1 overflow-hidden">
+        <span className="font-semibold truncate">{task.title}</span>
+        <Separator
+          orientation="vertical"
+          className="h-6"
+        />
+        <span className="text-sm text-muted-foreground truncate">
           {task.description}
-        </>
-      </CardContent>
-    </Card>
+        </span>
+      </div>
+
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => onDelete(task.id)}
+        className="text-red-500 hover:text-red-700"
+      >
+        <X className="w-4 h-4" />
+      </Button>
+    </div>
   );
 }
 
 function DisplayTasks({ tasks }: { tasks: Task[] }) {
   return (
-    <>
+    <div className="flex-col flex gap-5 pt-20 ">
       {tasks.map((task) => (
         <DisplayTask
           task={task}
           key={task.id}
         />
       ))}
-    </>
+    </div>
   );
 }
 
